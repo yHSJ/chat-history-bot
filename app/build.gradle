@@ -1,0 +1,61 @@
+plugins {
+    id 'application'
+    id("com.diffplug.spotless") version "7.0.0.BETA4"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+    maven { url "https://m2.chew.pro/releases" }
+}
+
+
+dependencies {
+    implementation("net.dv8tion:JDA:5.2.1")
+    implementation 'pw.chew:jda-chewtils:2.0'
+
+    implementation group: 'io.github.cdimascio', name: 'java-dotenv', version: '5.1.1'
+    implementation 'com.google.code.gson:gson:2.11.0'
+
+    implementation("io.javalin:javalin:6.3.0")
+
+    implementation 'com.opencsv:opencsv:5.10'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+    implementation libs.guava
+}
+
+
+
+spotless {
+//    ratchetFrom 'origin/main'
+
+    format 'misc', {
+        target '*.gradle', '.gitattributes', '.gitignore'
+
+        trimTrailingWhitespace()
+        indentWithSpaces(2)
+        endWithNewline()
+    }
+    java {
+        googleJavaFormat('1.17.0')
+        formatAnnotations()
+    }
+}
+
+
+application {
+    mainClass = 'fi.sundae.chathistory.Main'
+}
+
+
+shadowJar {
+    archiveBaseName.set("bot")
+    archiveVersion.set("")
+    archiveClassifier.set("")
+    mergeServiceFiles()
+}
