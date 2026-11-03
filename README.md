@@ -35,9 +35,10 @@ docker build -t chat-history-bot .
 docker run -e TOKEN=$TOKEN -e OWNER_ID=$OWNER_ID chat-history-bot
 ```
 
-Note: the logs are not formatted. As long as the bot doesn't crash, it should be running as expected. Your bot should appear as Online in Discord if functioning as expected.
+Logs go to stdout with timestamps. Each `/history` run logs lines tagged `[export <interaction id>]` with the channel, progress every 15 seconds, each file sent, and the final result or error. Set `LOG_LEVEL=DEBUG` for more detail from the bot itself.
 
 
 ## Usage
 Slash Commands:
-- `/history`: Export the current chat history into a CSV file that will be uploaded to you privately 
+- `/history`: Export the current channel's chat history (text channels, threads and forum posts) into CSV files that are sent to you privately. Large histories are split into files of about 8 MB each. If an export runs longer than 14 minutes, the remaining files arrive by DM.
+- `/ping`: Replies "Pong!" to confirm the bot is responsive 

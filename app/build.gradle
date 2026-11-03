@@ -27,6 +27,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 
     implementation libs.guava
+    implementation "ch.qos.logback:logback-classic:1.5.6"
 }
 
 
